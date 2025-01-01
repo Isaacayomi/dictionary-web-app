@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./starter-code/assets/images/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Frontend Mentor | Dictionary web app</title>
+  </head>
+  <body>
+    <!-- <div class="loader"></div> -->
+    <header>
+      <img src="./starter-code/assets/images/logo.svg" alt="nav logo" />
+      <div class="subheader">
+        <div class="options__section">
+          <div class="selected__font">
+            <p>Sans Serif</p>
+            <img
+              src="./starter-code/assets/images/icon-arrow-down.svg"
+              alt="dropdown image"
+              class="dropdown__img"
+            />
+          </div>
+          <div class="options hide__options">
+            <p class="sans">Sans Serif</p>
+            <p class="serif">Serif</p>
+            <p class="mono">Mono</p>
+          </div>
+        </div>
+        <div class="toggle__section">
+          <div class="toggle__btn">
+            <div class="toggle"></div>
+          </div>
+          <div class="toggle__img">
+            <img
+              src="./starter-code/assets/images/icon-moon.svg"
+              alt="dark mode image"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="input__section">
+      <div class="input__field">
+        <input
+          type="text"
+          name="input-word"
+          placeholder="Search for any word..."
+        />
+        <img
+          src="./starter-code/assets/images/icon-search.svg"
+          alt="search icon"
+          class="search__icon"
+        />
+      </div>
+      <p class="error__msg hide__error__msg">Whoops, can’t be empty…</p>
+    </section>
+    <main>
+      <!-- <section class="header">
+        <div class="header__words">
+          <h2 class="input__word">Keyboard</h2>
+          <p class="sound">/ˈkiːbɔːd/</p>
+        </div>
+        <div class="play__sound">
+          <img
+            src="./starter-code/assets/images/icon-play.png"
+            alt="play image"
+            class="play__img"
+          />
+          <audio class="play__audio"></audio>
+        </div>
+      </section>
+
+      <section class="meaning__heading noun">
+        <p>noun</p>
+        <img
+          src="./starter-code/assets/images/white-line.png"
+          alt="horizontal line"
+        />
+      </section>
+
+      <section class="meaning__section">
+        <p class="meaning">Meaning</p>
+        <ul class="meaning__lists">
+          <li>
+            (etc.) A set of keys used to operate a typewriter, computer etc.
+          </li>
+          <li>
+            A component of many instruments including the piano, organ, and
+            harpsichord consisting of usually black and white keys that cause
+            different tones to be produced when struck.
+          </li>
+          <li>
+            A device with keys of a musical keyboard, used to control electronic
+            sound-producing devices which may be built into or separate from the
+            keyboard device.
+          </li>
+        </ul>
+
+        <div class="synonymn__section">
+          <p>Synonyms</p>
+          <p class="synonymn">electronic keyboard</p>
+        </div>
+      </section> -->
+
+      <!-- <section class="meaning__heading verb">
+        <p>verb</p>
+        <img
+          src="./starter-code/assets/images/white-line.png"
+          alt="horizontal line"
+        />
+      </section> -->
+      <!-- <section class="meaning__section verb__meaning">
+        <p class="meaning">Meaning</p>
+        <ul>
+          <li>To type on a computer keyboard.</li>
+          <p class="sentence">
+            “Keyboarding is the part of this job I hate the most.”
+          </p>
+        </ul>
+      </section> -->
+    </main>
+    <footer class="source">
+      <p>Source</p>
+      <p>
+        <a href="https://en.wiktionary.org/wiki/keyboard" target="_blank"
+          >https://en.wiktionary.org/wiki/keyboard</a
+        >
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
