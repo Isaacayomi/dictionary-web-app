@@ -64,97 +64,121 @@ const submit = () => {
 };
 
 // const renderData = function (data) {
-//   main.innerHTML = " ";
+//   main.innerHTML = "";
 
-//   const phoneticsHTML = data[0].map(function (phonetic) {
-//     phonetic.text;
-//   });
+//   const phonetic = data[0].phonetic;
 
-//   const meaningsHTML = data[0].meanings.map(function (meanings) {
-//     return meanings.map(function (definitions) {
-//       return `<li>${definitions.definition}</li>`;
-//     });
-//   });
+//   const meaningSection = data[0].meanings
+//     .map(function (meaning) {
+//       return `
+//   <section class="meaning__heading noun">
+//         <p>${meaning.partOfSpeech}</p>
+//         <img
+//           src="./starter-code/assets/images/white-line.png"
+//           alt="horizontal line"
+//         />
+//       </section>
+//   `;
+//     })
+//     .join("");
 
-//   const partOfSpeech = data[0].meanings.map(function (meanings) {
-//     return meanings.map(function (pos) {
-//       return `<p>${pos.partOfSpeech}</p>`;
-//     });
-//   });
+//   const meaningLists = data[0].meanings
+//     .map(function (meaning) {
+//       return meaning.definitions
+//         .map(function (def) {
+//           const synonyms = def.synonyms.length
+//             ? def.synonyms.join(", ")
+//             : "No synonyms available";
+//           return `
+//           <section class="meaning__section">
+//             <p class="meaning">Meaning</p>
+//             <ul class="meaning__lists">
+//               <li>${def.definition}</li>
+//             </ul>
+
+//             <div class="synonymn__section">
+//               <p>Synonyms</p>
+//               <p class="synonymn">${synonyms}</p>
+//             </div>
+//           </section>
+//           `;
+//         })
+//         .join("");
+//     })
+//     .join("");
 
 //   const html = `
-// <section class="header">
-// <div class="header__words">
-//   <h2 class="input__word">${data[0].word}</h2>
-//   <p> ${phoneticsHTML}</p>
-// </div>
-// <div class="play__sound">
-//   <img
-//     src="./starter-code/assets/images/icon-play.png"
-//     alt="play image"
-//     class="play__img"
-//   />
-//   <audio class="play__audio"></audio>
-// </div>
-// </section>
 
-// <section class="meaning__heading noun">
-// ${partOfSpeech}
-// <img
-//   src="./starter-code/assets/images/white-line.png"
-//   alt="horizontal line"
-// />
-// </section>
-
-// <section class="meaning__section">
-// <p class="meaning">Meaning</p>
-// <ul class="meaning__lists">
-//   ${meaningsHTML}
-// </ul>
-
-// <div class="synonymn__section">
-//   <p>Synonyms</p>
-//   <p class="synonymn">electronic keyboard</p>
-// </div>
-// </section>
-
-// `;
-
-//   console.log(true);
-//   main.insertAdjacentHTML("afterbegin", html);
+//   <section class="header">
+//         <div class="header__words">
+//           <h2 class="input__word">${data[0].word}</h2>
+//           <p class="sound">${phonetic}</p>
+//         </div>
+//         <div class="play__sound">
+//           <img
+//             src="./starter-code/assets/images/icon-play.png"
+//             alt="play image"
+//             class="play__img"
+//           />
+//           <audio class="play__audio"></audio>
+//         </div>
+//       </section>
+//       ${meaningSection}
+//       ${meaningLists}
+//   `;
+//   main.insertAdjacentHTML("beforeend", html);
 // };
 
 const renderData = function (data) {
-  main.innerHTML = " ";
+  main.innerHTML = "";
 
-  // Phonetics text
-  // const phoneticsHTML = data[0].phonetics
-  //   .map((phonetic) => phonetic.text || "")
-  //   .join("");
+  // Get phonetic
+  const phonetic = data[0]?.phonetic || "Phonetic not available";
 
-  // Definitions list
-  const meaningsHTML = data[0].meanings
-    .map((meaning) => {
-      return meaning.definitions
-        .map((definition) => `<li>${definition.definition}</li>`)
-        .join("");
+  // Generate HTML for each part of speech and its meanings
+  const meaningsHTML = data[0]?.meanings
+    .map(function (meaning) {
+      const definitionsHTML = meaning.definitions
+        .map(function (def) {
+          const synonyms =
+            def.synonyms && def.synonyms.length
+              ? def.synonyms.join(", ")
+              : "No synonyms available";
+          return `
+            <li class="definition">${def.definition}</li>
+            
+          `;
+        })
+        .join(""); // Combine all definitions for this part of speech
+
+      return `
+        <section class="meaning__heading">
+          <p class="part-of-speech">${meaning.partOfSpeech}</p>
+          <img
+            src="./starter-code/assets/images/white-line.png"
+            alt="horizontal line"
+          />
+        </section>
+        <section class="meaning__section">
+          <p class="meaning">Meaning</p>
+          <ul class="meaning__lists">
+            ${definitionsHTML}
+          </ul>
+          <div class="synonymn__section">
+              <p>Synonyms</p>
+              <p class="synonymn">sy</p>
+            </div>
+        </section>
+      `;
     })
-    .join("");
+    .join(""); // Combine all parts of speech sections
 
-  // Parts of Speech
-  const partOfSpeech = data[0].meanings
-    .map((meaning) => `<p>${meaning.partOfSpeech}</p>`)
-    .join("");
-
-  // HTML structure
+  // Complete HTML
   const html = `
     <section class="header">
       <div class="header__words">
-        <h2 class="input__word">${data[0].word}</h2>
-
-        ${data[0].phonetics
-          .map((phonetic) => `<p>${phonetic.text}</p>` || "")
-          .join("")}
+        <h2 class="input__word">${data[0]?.word || "Word not available"}</h2>
+        <p class="sound">${phonetic}</p>
       </div>
       <div class="play__sound">
         <img
@@ -165,37 +189,11 @@ const renderData = function (data) {
         <audio class="play__audio"></audio>
       </div>
     </section>
-
-    <section class="meaning__heading noun">
-   ${data[0].meanings
-     .map((meaning) => `<p>${meaning.partOfSpeech}</p>`)
-     .join("")}
-      <img
-        src="./starter-code/assets/images/white-line.png"
-        alt="horizontal line"
-      />
-    </section>
-
-    <section class="meaning__section">
-      <p class="meaning">Meaning</p>
-      <ul class="meaning__lists">
-        ${data[0].meanings
-          .map((meaning) => {
-            return meaning.definitions
-              .map((definition) => `<li>${definition.definition}</li>`)
-              .join("");
-          })
-          .join("")}
-      </ul>
-
-      <div class="synonymn__section">
-        <p>Synonyms</p>
-        <p class="synonymn">electronic keyboard</p>
-      </div>
-    </section>
+    ${meaningsHTML}
   `;
 
-  main.insertAdjacentHTML("afterbegin", html);
+  // Insert the HTML into the main element
+  main.insertAdjacentHTML("beforeend", html);
 };
 
 const getData = async function (word) {
