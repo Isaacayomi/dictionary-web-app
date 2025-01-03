@@ -64,15 +64,14 @@ const submit = () => {
 };
 
 const renderData = (data) => {
-  main.innerHTML = ""; // Clear previous content
+  main.innerHTML = "";
 
-  // Extract phonetic
-  const phonetic = data[0]?.phonetic || "Phonetic not available";
+  const phonetic = data[0].phonetic;
+  source.href = `${data[0].sourceUrls}}`;
+  source.innerHTML = `${data[0].sourceUrls}`;
 
-  // Generate HTML for meanings
-  const meaningSection = data[0]?.meanings
+  const meaningSection = data[0].meanings
     .map(function (meaning) {
-      // Generate definitions for each part of speech
       const definitionsHTML = meaning.definitions
         .map(function (def) {
           return `
@@ -82,7 +81,7 @@ const renderData = (data) => {
             </li>
           `;
         })
-        .join(""); // Combine all definitions
+        .join("");
 
       return `
         <section class="meaning__heading">
@@ -98,19 +97,28 @@ const renderData = (data) => {
             ${definitionsHTML}
           </ul>
           <div class="synonymn__section">
-            <p>Synonyms</p>
-            <p class="synonymn">${
-              meaning.synonyms && meaning.synonyms.length
-                ? meaning.synonyms.join(", ")
-                : "No synonyms available"
-            }</p>
-          </div>
+          <p class='synonymn__heading'>${
+            meaning.synonyms && meaning.synonyms.length
+              ? "Synonyms:"
+              : meaning.antonyms && meaning.antonyms.length
+              ? "Antonyms:"
+              : "No Synonyms or Antonyms found"
+          }</p>
+          <p class="synonymn">${
+            meaning.synonyms && meaning.synonyms.length
+              ? meaning.synonyms.join(", ")
+              : meaning.antonyms && meaning.antonyms.length
+              ? meaning.antonyms.join(", ")
+              : ""
+          }</p>
+        </div>
+        
         </section>
       `;
     })
-    .join(""); // Combine all meanings
+    .join("");
 
-  // Final HTML structure
+
   const html = `
     <section class="header">
       <div class="header__words">
@@ -127,9 +135,16 @@ const renderData = (data) => {
       </div>
     </section>
     ${meaningSection}
+    <footer class="source">
+      <p>Source</p>
+      <p>
+        <a href="https://en.wiktionary.org/wiki/${data.word}" target="_blank"
+          >https://en.wiktionary.org/wiki/${data.word}</a
+        >
+      </p>
+    </footer>
   `;
 
-  // Insert HTML into the main container
   main.insertAdjacentHTML("beforeend", html);
 };
 
@@ -139,6 +154,7 @@ const getData = async function (word) {
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     if (!res.ok) {
+      console.log("failed to fetch sehh!");
       throw new Error(`HTTP error!: ${res.status}`);
     }
     const data = await res.json();
@@ -148,6 +164,8 @@ const getData = async function (word) {
     footer.style.opacity = 100;
     return data;
   } catch (error) {
+    // main.style.opacity = 100;
+    // main.innerHTML = "This word cannot be found";
     console.log(`An error occurred: ${error.message}`);
   }
 };
