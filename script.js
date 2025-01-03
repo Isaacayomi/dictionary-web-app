@@ -65,10 +65,16 @@ const submit = () => {
 
 const renderData = (data) => {
   main.innerHTML = "";
-
-  const phonetic = data[0].phonetic;
+  const phonetic = data[0].phonetics
+    .map(function (phonetic) {
+      return phonetic.text && phonetic.text.length
+        ? phonetic.text
+        : "No phonetics found";
+    })
+    .join(", ");
   source.href = `${data[0].sourceUrls}}`;
   source.innerHTML = `${data[0].sourceUrls}`;
+  source.style.opacity = '100'
 
   const meaningSection = data[0].meanings
     .map(function (meaning) {
@@ -110,14 +116,14 @@ const renderData = (data) => {
               : meaning.antonyms && meaning.antonyms.length
               ? meaning.antonyms.join(", ")
               : ""
-          }</p>
+          }
+          </p>
         </div>
         
         </section>
       `;
     })
     .join("");
-
 
   const html = `
     <section class="header">
@@ -135,14 +141,7 @@ const renderData = (data) => {
       </div>
     </section>
     ${meaningSection}
-    <footer class="source">
-      <p>Source</p>
-      <p>
-        <a href="https://en.wiktionary.org/wiki/${data.word}" target="_blank"
-          >https://en.wiktionary.org/wiki/${data.word}</a
-        >
-      </p>
-    </footer>
+   
   `;
 
   main.insertAdjacentHTML("beforeend", html);

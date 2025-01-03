@@ -362,6 +362,8 @@ p.sentence {
   width: 100%;
   margin-inline: auto;
   color: #2d2d2d;
+  padding-top: 2rem;
+  border-top: 0.0625rem solid #E9E9E9;
 }
 
 a {
