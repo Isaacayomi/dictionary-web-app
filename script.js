@@ -12,8 +12,7 @@ let synonymn = document.querySelector(".synonymn");
 const errorMsg = document.querySelector(".error__msg");
 const meaningLists = document.querySelector(".meaning__lists");
 const source = document.querySelector(".source p a");
-const audio = document.querySelector(".play__audio");
-const playImg = document.querySelector(".play__img");
+
 const footer = document.querySelector("footer");
 
 const toggleMode = () => {
@@ -65,16 +64,19 @@ const submit = () => {
 
 const renderData = (data) => {
   main.innerHTML = "";
-  const phonetic = data[0].phonetics
-    .map(function (phonetic) {
-      return phonetic.text && phonetic.text.length
-        ? phonetic.text
-        : "No phonetics found";
-    })
-    .join(", ");
+  const phonetic =
+    data[0].phonetics.find((phonetic) => phonetic.text && phonetic.text.length)
+      ?.text || "No phonetics found";
+
   source.href = `${data[0].sourceUrls}}`;
   source.innerHTML = `${data[0].sourceUrls}`;
-  source.style.opacity = '100'
+  source.style.opacity = "100";
+
+  const phoneticAudio = data[0].phonetics.find(
+    (phonetic) => phonetic.audio && phonetic.audio.length
+  );
+
+  const audioSrc = phoneticAudio?.audio || "";
 
   const meaningSection = data[0].meanings
     .map(function (meaning) {
@@ -108,7 +110,7 @@ const renderData = (data) => {
               ? "Synonyms:"
               : meaning.antonyms && meaning.antonyms.length
               ? "Antonyms:"
-              : "No Synonyms or Antonyms found"
+              : ""
           }</p>
           <p class="synonymn">${
             meaning.synonyms && meaning.synonyms.length
@@ -137,7 +139,7 @@ const renderData = (data) => {
           alt="play image"
           class="play__img"
         />
-        <audio class="play__audio"></audio>
+        <audio class="play__audio" src=${audioSrc}>/audio>
       </div>
     </section>
     ${meaningSection}
@@ -145,6 +147,11 @@ const renderData = (data) => {
   `;
 
   main.insertAdjacentHTML("beforeend", html);
+  const audio = document.querySelector(".play__audio");
+  const playImg = document.querySelector(".play__img");
+  playImg.addEventListener("click", function () {
+    audio.play();
+  });
 };
 
 const getData = async function (word) {
@@ -161,6 +168,7 @@ const getData = async function (word) {
     renderData(data);
     main.style.opacity = 100;
     footer.style.opacity = 100;
+
     return data;
   } catch (error) {
     // main.style.opacity = 100;
@@ -178,3 +186,4 @@ searchIcon.addEventListener("click", submit);
 
 dropdown.addEventListener("click", toggleOptions);
 toggle.addEventListener("click", toggleBtn);
+// console.log(playImg);

@@ -36,6 +36,7 @@
 main,
 footer {
   opacity: 0;
+  overflow-x:hidden;
 }
 
 body {
@@ -198,7 +199,6 @@ input:focus {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-right: 29.5rem;
   margin-top: 0.5rem;
 }
 
@@ -209,7 +209,7 @@ input:focus {
   padding: 2.81rem;
   display: flex;
   align-items: center;
-  gap: 23.06rem;
+  gap: 32rem;
   justify-content: center;
 }
 
@@ -327,13 +327,11 @@ ul li::marker {
 p.sentence {
   color: var(--togglemodebg);
   font-feature-settings: "liga" off, "clig" off;
-
   font-family: "Inter";
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5rem;
-  margin-left: 2.94rem;
 }
 
 .verb__meaning ul li {
@@ -379,10 +377,12 @@ input:hover,
   cursor: pointer;
 }
 
+
 .hide__options,
 .hide__error__msg {
-  /* display: none; */
+  display: none;
   opacity: 0;
+  transition: .2s linear;
 }
 
 @media screen and (max-width: 760px) {
@@ -408,7 +408,7 @@ input:hover,
   .header {
     padding-top: 1.5rem;
     padding-bottom: 0;
-    gap: 12.7rem;
+    gap: 16rem;
   }
 
   input {
@@ -526,11 +526,17 @@ input:hover,
   }
 
   .header {
-    gap: 9rem;
+    /* gap: 9rem; */
   }
 
   .meaning__section,
   .meaning__heading {
     padding-inline: 1rem;
+  }
+
+  .error__msg {
+    margin-left: 0;
+    /* margin-right: 29.5rem; */
+
   }
 }
