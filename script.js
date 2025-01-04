@@ -12,7 +12,7 @@ let synonymn = document.querySelector(".synonymn");
 const errorMsg = document.querySelector(".error__msg");
 const meaningLists = document.querySelector(".meaning__lists");
 const source = document.querySelector(".source p a");
-
+const loader = document.querySelector(".loader");
 const footer = document.querySelector("footer");
 
 const toggleMode = () => {
@@ -147,6 +147,7 @@ const renderData = (data) => {
   `;
 
   main.insertAdjacentHTML("beforeend", html);
+
   const audio = document.querySelector(".play__audio");
   const playImg = document.querySelector(".play__img");
   playImg.addEventListener("click", function () {
@@ -156,6 +157,9 @@ const renderData = (data) => {
 
 const getData = async function (word) {
   try {
+    loader.style.display = "block";
+    main.style.opacity = 0;
+    footer.style.opacity = 0;
     const res = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
@@ -168,7 +172,7 @@ const getData = async function (word) {
     renderData(data);
     main.style.opacity = 100;
     footer.style.opacity = 100;
-
+    loader.style.display = "none";
     return data;
   } catch (error) {
     // main.style.opacity = 100;
