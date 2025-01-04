@@ -38,20 +38,17 @@ const toggleOptions = () => {
 const toggleBtn = () => {
   if (!toggle.classList.contains("move__toggle")) {
     toggle.classList.add("move__toggle");
-    // console.log(playIcon.src);
-    // playImg.src = "./starter-code/assets/images/icon-play-dark-mode.png";
     toggleMode();
     console.log("added");
   } else {
     toggle.classList.remove("move__toggle");
-    // playImg.src = "./starter-code/assets/images/icon-play.png";
     console.log("removed");
     !toggleMode();
   }
 };
 
 const submit = () => {
-  const word = input.value.trim(); // Get the input value
+  const word = input.value.trim();
 
   if (word) {
     errorMsg.classList.add("hide__error__msg");
@@ -114,12 +111,21 @@ const renderData = (data) => {
           }</p>
           <p class="synonymn">${
             meaning.synonyms && meaning.synonyms.length
-              ? meaning.synonyms.join(", ")
+              ? meaning.synonyms
+                  .map(
+                    (synonym) => `<span class="clickable-el">${synonym}</span>`
+                  )
+                  .join(", ")
               : meaning.antonyms && meaning.antonyms.length
-              ? meaning.antonyms.join(", ")
+              ? meaning
+                  .map(
+                    (antonymn) =>
+                      `<span class = 'clickable-el'> ${antonymn}</span>`
+                  )
+                  .join(", ")
               : ""
           }
-          </p>
+        </p>
         </div>
         
         </section>
@@ -150,8 +156,16 @@ const renderData = (data) => {
 
   const audio = document.querySelector(".play__audio");
   const playImg = document.querySelector(".play__img");
+  const clickableEl = document.querySelectorAll(".clickable-el");
   playImg.addEventListener("click", function () {
     audio.play();
+  });
+  clickableEl.forEach((el) => {
+    el.addEventListener("click", () => {
+      console.log(el.textContent);
+      input.value = el.textContent;
+      getData(el.textContent);
+    });
   });
 };
 
@@ -175,8 +189,6 @@ const getData = async function (word) {
     loader.style.display = "none";
     return data;
   } catch (error) {
-    // main.style.opacity = 100;
-    // main.innerHTML = "This word cannot be found";
     console.log(`An error occurred: ${error.message}`);
   }
 };
@@ -186,8 +198,7 @@ input.addEventListener("keydown", function (e) {
     submit();
   }
 });
-searchIcon.addEventListener("click", submit);
 
+searchIcon.addEventListener("click", submit);
 dropdown.addEventListener("click", toggleOptions);
 toggle.addEventListener("click", toggleBtn);
-// console.log(playImg);
