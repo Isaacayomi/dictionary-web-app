@@ -1,6 +1,8 @@
 "use strict";
+const body = document.querySelector("body");
 const main = document.querySelector("main");
 const options = document.querySelector(".options");
+const fonts = document.querySelectorAll(".fonts");
 const dropdown = document.querySelector(".dropdown__img");
 const toggleContainer = document.querySelector(".toggle__btn");
 const toggle = document.querySelector(".toggle");
@@ -52,8 +54,10 @@ const submit = () => {
 
   if (word) {
     errorMsg.classList.add("hide__error__msg");
+    main.style.opacity = 100;
     getData(word);
   } else {
+    main.style.opacity = 0;
     errorMsg.classList.remove("hide__error__msg");
     console.log("Please enter a word.");
   }
@@ -62,6 +66,7 @@ const submit = () => {
 const renderData = (data) => {
   main.innerHTML = "";
   const phonetic =
+    // finds the first phonetic that has a text property and a length greater than 0
     data[0].phonetics.find((phonetic) => phonetic.text && phonetic.text.length)
       ?.text || "No phonetics found";
 
@@ -69,6 +74,7 @@ const renderData = (data) => {
   source.innerHTML = `${data[0].sourceUrls}`;
   source.style.opacity = "100";
 
+  // finds the first phonetic audio that has a length greater than 0
   const phoneticAudio = data[0].phonetics.find(
     (phonetic) => phonetic.audio && phonetic.audio.length
   );
@@ -189,8 +195,17 @@ const getData = async function (word) {
     loader.style.display = "none";
     return data;
   } catch (error) {
+    alert("error o, senior man");
     console.log(`An error occurred: ${error.message}`);
   }
+};
+
+const changeFont = () => {
+  fonts.forEach(function (font, i) {
+    font.addEventListener("click", function () {
+     
+    });
+  });
 };
 
 input.addEventListener("keydown", function (e) {

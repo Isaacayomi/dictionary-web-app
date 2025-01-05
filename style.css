@@ -8,6 +8,7 @@
   --inputbg: #f4f4f4;
   --playbtnbg: rgba(164, 69, 237, 0.25);
   --meaningcolor: #2d2d2d;
+  --meaninglists: #2d2d2d;
   --outlinecolor: #a445ed;
   --optionscolor: black;
 }
@@ -22,6 +23,7 @@
   --playbtnbg: rgba(164, 69, 237, 0.1);
   --textmeaningcolor: white;
   --shadow: 0px 5px 30px 0px #a445ed;
+  --meaninglists: #fff;
   --inputbg: #1f1f1f;
   --meaningcolor: #757575;
 }
@@ -273,7 +275,7 @@ input:focus {
 }
 
 .meaning__section p {
-  color: var(--togglebg);
+  color: #757575;
   font-feature-settings: "liga" off, "clig" off;
 
   /* Heading S - Sans */
@@ -291,7 +293,7 @@ ul li::marker {
 
 .meaning__section ul li {
   margin-bottom: 0.81rem;
-  color: var(--meaningcolor);
+  color: var(--meaninglists);
   font-feature-settings: "liga" off, "clig" off;
   font-family: "Inter";
   font-size: 1.125rem;
@@ -364,8 +366,17 @@ p.sentence {
   border-top: 0.0625rem solid #e9e9e9;
 }
 
+.source p {
+  color: var(textmeaningcolor);
+}
+
+.source p:nth-child(1) {
+  color: #757575;
+}
+
 a {
-  color: #2d2d2d;
+  color: var(--textmeaningcolor);
+  text-decoration: none;
 }
 
 /* HOVER STATES */
