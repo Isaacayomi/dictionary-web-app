@@ -16,6 +16,36 @@ const meaningLists = document.querySelector(".meaning__lists");
 const source = document.querySelector(".source p a");
 const loader = document.querySelector(".loader");
 const footer = document.querySelector("footer");
+const fontName = ["Inter", "Lora", "Inconsolata"];
+// All sections that changes font
+
+fonts.forEach(function (font, i) {
+  font.addEventListener("click", function () {
+    let errorMessageSection = document.querySelector(".error__msg");
+    let inputWordSection = document.querySelector(".input__word");
+    let soundSection = document.querySelector(".sound");
+    let meaningHeadingSection = document.querySelectorAll(".meaning__heading p");
+    let meaningSectionParagraph = document.querySelectorAll(".meaning__section p");
+    let meaningSectionList = document.querySelectorAll(".meaning__section ul li");
+    let synonymnSection = document.querySelectorAll("p.sentence");
+
+    const elementsToStyle = [
+      errorMessageSection,
+      inputWordSection,
+      soundSection,
+      meaningHeadingSection,
+      meaningSectionParagraph,
+      meaningSectionList,
+      synonymnSection,
+    ];
+
+    elementsToStyle.forEach(function(element) {
+      element.style.fontFamily = fontName[i];
+    })
+
+    console.log(`Font changed to: ${fontName[i]}`);
+  });
+});
 
 const toggleMode = () => {
   let currentTheme = document.documentElement.getAttribute("data-theme");
@@ -95,14 +125,14 @@ const renderData = (data) => {
         .join("");
 
       return `
-        <section class="meaning__heading">
+        <section class="meaning__heading page__section">
           <p>${meaning.partOfSpeech}</p>
           <img
             src="./starter-code/assets/images/white-line.png"
             alt="horizontal line"
           />
         </section>
-        <section class="meaning__section">
+        <section class="meaning__section page__section">
           <p class="meaning">Meaning</p>
           <ul class="meaning__lists">
             ${definitionsHTML}
@@ -140,7 +170,7 @@ const renderData = (data) => {
     .join("");
 
   const html = `
-    <section class="header">
+    <section class="header page__section">
       <div class="header__words">
         <h2 class="input__word">${data[0]?.word || "Word not available"}</h2>
         <p class="sound">${phonetic}</p>
@@ -198,14 +228,6 @@ const getData = async function (word) {
     alert("error o, senior man");
     console.log(`An error occurred: ${error.message}`);
   }
-};
-
-const changeFont = () => {
-  fonts.forEach(function (font, i) {
-    font.addEventListener("click", function () {
-     
-    });
-  });
 };
 
 input.addEventListener("keydown", function (e) {
