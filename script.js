@@ -17,35 +17,6 @@ const source = document.querySelector(".source p a");
 const loader = document.querySelector(".loader");
 const footer = document.querySelector("footer");
 const fontName = ["Inter", "Lora", "Inconsolata"];
-// All sections that changes font
-
-fonts.forEach(function (font, i) {
-  font.addEventListener("click", function () {
-    let errorMessageSection = document.querySelector(".error__msg");
-    let inputWordSection = document.querySelector(".input__word");
-    let soundSection = document.querySelector(".sound");
-    let meaningHeadingSection = document.querySelectorAll(".meaning__heading p");
-    let meaningSectionParagraph = document.querySelectorAll(".meaning__section p");
-    let meaningSectionList = document.querySelectorAll(".meaning__section ul li");
-    let synonymnSection = document.querySelectorAll("p.sentence");
-
-    const elementsToStyle = [
-      errorMessageSection,
-      inputWordSection,
-      soundSection,
-      meaningHeadingSection,
-      meaningSectionParagraph,
-      meaningSectionList,
-      synonymnSection,
-    ];
-
-    elementsToStyle.forEach(function(element) {
-      element.style.fontFamily = fontName[i];
-    })
-
-    console.log(`Font changed to: ${fontName[i]}`);
-  });
-});
 
 const toggleMode = () => {
   let currentTheme = document.documentElement.getAttribute("data-theme");
@@ -77,6 +48,44 @@ const toggleBtn = () => {
     console.log("removed");
     !toggleMode();
   }
+};
+
+// code to change font on selection
+const changeFont = () => {
+  fonts.forEach(function (font, i) {
+    font.addEventListener("click", function () {
+      toggleOptions();
+      let errorMessageSection = document.querySelector(".error__msg");
+      let inputWordSection = document.querySelector(".input__word");
+      let soundSection = document.querySelector(".sound");
+      let meaningHeadingSection = document.querySelectorAll(
+        ".meaning__heading p"
+      );
+      let meaningSectionParagraph = document.querySelectorAll(
+        ".meaning__section p"
+      );
+      let meaningSectionList = document.querySelectorAll(
+        ".meaning__section ul li"
+      );
+      let synonymnSection = document.querySelectorAll("p.sentence");
+
+      const elementsToStyle = [
+        errorMessageSection,
+        inputWordSection,
+        soundSection,
+        ...meaningHeadingSection,
+        ...meaningSectionParagraph,
+        ...meaningSectionList,
+        ...synonymnSection,
+      ];
+
+      elementsToStyle.forEach(function (element) {
+        element.style.fontFamily = fontName[i];
+      });
+
+      console.log(`Font changed to: ${fontName[i]}`);
+    });
+  });
 };
 
 const submit = () => {
@@ -239,3 +248,4 @@ input.addEventListener("keydown", function (e) {
 searchIcon.addEventListener("click", submit);
 dropdown.addEventListener("click", toggleOptions);
 toggle.addEventListener("click", toggleBtn);
+changeFont();
