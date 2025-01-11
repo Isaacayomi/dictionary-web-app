@@ -326,6 +326,11 @@ ul li::marker {
   color: var(--A445ED, #a445ed);
 }
 
+.synonymn span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .meaning__section .meaning {
   color: var(--meaningcolor);
 }
@@ -411,6 +416,7 @@ input:hover,
 }
 
 .error__page {
+  display: none;
   font-family: "Inter";
   max-width: 46rem;
   width: 100%;
@@ -432,6 +438,7 @@ input:hover,
 }
 
 .err__heading {
+  color: var(--meaninglists);
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 700;
@@ -440,6 +447,7 @@ input:hover,
 }
 
 .err__message {
+  color: #757575;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;

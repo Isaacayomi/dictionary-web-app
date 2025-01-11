@@ -2,6 +2,7 @@
 const body = document.querySelector("body");
 const main = document.querySelector("main");
 const options = document.querySelector(".options");
+const errorPage = document.querySelector(".error__page");
 const fonts = document.querySelectorAll(".fonts");
 const dropdown = document.querySelector(".dropdown__img");
 const toggleContainer = document.querySelector(".toggle__btn");
@@ -214,8 +215,10 @@ const renderData = (data) => {
   });
 };
 
+errorPage.style.display = "none";
 const getData = async function (word) {
   try {
+    errorPage.style.display = "none";
     loader.style.display = "block";
     main.style.opacity = 0;
     footer.style.opacity = 0;
@@ -234,7 +237,9 @@ const getData = async function (word) {
     loader.style.display = "none";
     return data;
   } catch (error) {
-    alert("error o, senior man");
+    // alert("error o, senior man");
+    loader.style.display = "none";
+    errorPage.style.display = "flex";
     console.log(`An error occurred: ${error.message}`);
   }
 };
