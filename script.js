@@ -19,6 +19,7 @@ const loader = document.querySelector(".loader");
 const footer = document.querySelector("footer");
 const fontName = ["Inter", "Lora", "Inconsolata"];
 
+// toggle between dark and light mode
 const toggleMode = () => {
   let currentTheme = document.documentElement.getAttribute("data-theme");
   let newTheme = currentTheme;
@@ -31,6 +32,7 @@ const toggleMode = () => {
   document.documentElement.setAttribute("data-theme", newTheme);
 };
 
+// toggle font options
 const toggleOptions = () => {
   if (options.classList.contains("hide__options")) {
     options.classList.remove("hide__options");
@@ -39,6 +41,7 @@ const toggleOptions = () => {
   }
 };
 
+// toggle button
 const toggleBtn = () => {
   if (!toggle.classList.contains("move__toggle")) {
     toggle.classList.add("move__toggle");
@@ -89,9 +92,9 @@ const changeFont = () => {
   });
 };
 
+// submit function
 const submit = () => {
   const word = input.value.trim();
-
   if (word) {
     errorMsg.classList.add("hide__error__msg");
     main.style.opacity = 100;
@@ -103,6 +106,7 @@ const submit = () => {
   }
 };
 
+// Render data dynamically on the UI
 const renderData = (data) => {
   main.innerHTML = "";
   const phonetic =
@@ -206,6 +210,8 @@ const renderData = (data) => {
   playImg.addEventListener("click", function () {
     audio.play();
   });
+
+  // Add click event listener to each synonymn generated
   clickableEl.forEach((el) => {
     el.addEventListener("click", () => {
       console.log(el.textContent);
@@ -215,6 +221,7 @@ const renderData = (data) => {
   });
 };
 
+// Hide error page before fetching the data
 errorPage.style.display = "none";
 const getData = async function (word) {
   try {
@@ -230,14 +237,12 @@ const getData = async function (word) {
       throw new Error(`HTTP error!: ${res.status}`);
     }
     const data = await res.json();
-    console.log(data);
     renderData(data);
     main.style.opacity = 100;
     footer.style.opacity = 100;
     loader.style.display = "none";
     return data;
   } catch (error) {
-    // alert("error o, senior man");
     loader.style.display = "none";
     errorPage.style.display = "flex";
     console.log(`An error occurred: ${error.message}`);
