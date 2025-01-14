@@ -211,6 +211,12 @@ const renderData = (data) => {
     audio.play();
   });
 
+  if (!phoneticAudio) {
+    playImg.style.display = "none";
+  } else {
+    playImg.style.display = "block";
+  }
+
   // Add click event listener to each synonymn generated
   clickableEl.forEach((el) => {
     el.addEventListener("click", () => {
@@ -233,7 +239,7 @@ const getData = async function (word) {
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     if (!res.ok) {
-      console.log("failed to fetch sehh!");
+      console.log("e no dey fetch ooo, senior man!");
       throw new Error(`HTTP error!: ${res.status}`);
     }
     const data = await res.json();
